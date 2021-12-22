@@ -10,7 +10,7 @@ public class myDatabase {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/lab02", "root", "2011he820");
+		Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/lab02", "root", "");
 		java.sql.Statement statement = connection.createStatement();
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;

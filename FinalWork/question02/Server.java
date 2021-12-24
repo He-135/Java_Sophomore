@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -39,31 +40,24 @@ class SyncObject{}
 class MyThread implements Runnable{
 	private SyncObject syncObject = null;
 	private Socket socket = null;
-	private InputStream is = null;
-	private ByteArrayOutputStream baos = null;
 	@Override
 	public void run() {
 		try {
 			synchronized (syncObject) {
-				is = this.socket.getInputStream();
-				baos = new ByteArrayOutputStream();
-	            int len=0;
-	            byte[] buffer = new byte[1024];
-	            while ((len=is.read(buffer))!=-1){
-	                baos.write(buffer,0,len);
-	            }
-	            String str = baos.toString();
-	            ObjectOutputStream objectOutputStream = new ObjectOutputStream(
-						new FileOutputStream("string.dat", true));
-	            byte[] buf = str.getBytes();
-	            objectOutputStream.writeObject(buf.toString());
+				ObjectInputStream objectInputStream = new ObjectInputStream(this.socket.getInputStream());
+				String string = (String)objectInputStream.readObject();
+				
+	            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("string.dat", true)); 	
+	            objectOutputStream.writeObject(string);
 				objectOutputStream.close();
-				System.out.print("接收：" + baos.toString());
+				System.out.print("接收：" + string);
 				System.out.println("已写入！");
+				
 			}
             
 		} catch (IOException e) {
-			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		

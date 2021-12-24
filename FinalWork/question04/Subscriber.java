@@ -20,7 +20,7 @@ public class Subscriber implements Runnable {
 					}
 				}
 				for(int i = 0; i < new Random().nextInt(buffer.getSize()); i++) {//接收随机个数个数据					
-					System.out.println("接收：\t" + buffer.getMessage(new Random().nextInt(buffer.getSize())));
+					System.out.println("接收：\t" + buffer.getMessage(new Random().nextInt(buffer.getSize())));//读取buffer中随机位置的数据
 					syncObject.notifyAll();
 					try {
 						Thread.sleep(1000);

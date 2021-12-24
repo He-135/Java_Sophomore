@@ -7,7 +7,7 @@ public class Buffer {
 	private Queue<Integer>messages = new LinkedList<Integer>();
 	private boolean empty = true;
 	private boolean full =  false;
-	private final static int maxSize = 10;
+	private final static int maxSize = 5;
 	
 	public void putMessage(int mes) {
 		messages.add(mes);
@@ -35,5 +35,7 @@ public class Buffer {
 	public boolean isFull() {
 		return full;
 	}
-	
+	public int getSize() {
+		return messages.size();
+	}
 }

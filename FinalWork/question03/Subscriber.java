@@ -18,11 +18,19 @@ public class Subscriber implements Runnable {
 						e.printStackTrace();
 					}
 				}
-				System.out.println("接收：\t" + buffer.getMessage());
-				syncObject.notifyAll();
+				for(int i = 0; i < new Random().nextInt(buffer.getSize()); i++) {//接收随机个数个数据					
+					System.out.println("接收：\t" + buffer.getMessage());
+					syncObject.notifyAll();
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO 自动生成的 catch 块
+						e.printStackTrace();
+					}
+				}
 			}
 			try {
-				Thread.sleep(new Random().nextInt(3000));
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();

@@ -8,7 +8,6 @@ public class Publisher implements Runnable {
 
 	@Override
 	public void run() {
-
 		while (true) {
 			synchronized (syncObject) {
 				while (buffer.isFull()) {
